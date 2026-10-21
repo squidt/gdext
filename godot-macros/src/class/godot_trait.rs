@@ -1,5 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
+use venial::FnParam;
 
 use crate::util::{self, bail};
 use crate::ParseResult;
@@ -47,11 +48,24 @@ pub fn attribute_godot_trait(input_decl: venial::Item) -> ParseResult<TokenStrea
         if let venial::ImplMember::AssocFunction(function) = decl_item {
             let fn_sig = util::reduce_to_signature(function);
             let fn_name = &fn_sig.name;
-            let fn_params = &fn_sig.params;
+            let fn_params = &fn_sig
+                .params
+                .items()
+                .map(|param| match param {
+                    FnParam::Receiver(param) => {
+                        let tk_self = &param.tk_self;
+                        quote! { #tk_self }
+                    }
+                    FnParam::Typed(param) => {
+                        let name = &param.name;
+                        quote! { #name }
+                    }
+                })
+                .collect::<Vec<_>>();
             godot_methods.push(quote! {
                 #[func]
                 #fn_sig {
-                    <Self as #trait_path>::#fn_name(#fn_params)
+                    <Self as #trait_path>::#fn_name(#(#fn_params),*)
                 }
             });
         }
