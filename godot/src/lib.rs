@@ -282,7 +282,7 @@ pub mod signal {
 pub mod register {
     #[cfg(feature = "__codegen-full")]
     pub use godot_core::registry::RpcConfig;
-    pub use godot_macros::{GodotClass, godot_api, godot_dyn};
+    pub use godot_macros::{godot_api, godot_dyn, godot_trait, GodotClass};
 
     /// Register Rust fields as Godot properties.
     pub mod property {

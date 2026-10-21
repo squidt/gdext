@@ -22,8 +22,8 @@ pub use super::obj::{
 };
 pub use super::register::property::{Export, PhantomVar, Var};
 // Re-export macros.
-pub use super::register::{GodotClass, godot_api, godot_dyn};
-pub use super::tools::{GFile, load, save, try_load, try_save};
+pub use super::register::{godot_api, godot_dyn, godot_trait, GodotClass};
+pub use super::tools::{load, save, try_load, try_save, GFile};
 
 // Make trait methods available.
 #[rustfmt::skip] // One per line.
