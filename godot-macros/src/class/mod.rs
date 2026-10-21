@@ -8,6 +8,7 @@
 mod derive_godot_class;
 mod godot_api;
 mod godot_dyn;
+mod godot_trait;
 
 mod data_models {
     pub mod constant;
@@ -38,3 +39,4 @@ pub(crate) use data_models::signal::*;
 pub(crate) use derive_godot_class::*;
 pub(crate) use godot_api::*;
 pub(crate) use godot_dyn::*;
+pub(crate) use godot_trait::*;
